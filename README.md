@@ -4,7 +4,7 @@
 
 This project is an AI application that estimates the price of a used car and explains the prediction in natural language.
 
-The application combines two AI blocks:
+The application combines two AI blocks. Prices are shown in Lakh ₹, which is the price unit used in the original dataset:
 
 1. ML Numeric Data: A machine learning model predicts the used car price from structured car data.
 2. NLP: A language model generates a human-readable explanation of the predicted price.
@@ -48,7 +48,7 @@ Two prompt variants were compared:
 - simple prompt
 - structured prompt
 
-The structured prompt was selected for the final application because it gives clearer and more useful explanations.
+The structured prompt was selected for the final application because it gives clearer and more useful explanations. If the language model returns an output that is too short or unclear, the app uses a transparent rule-based fallback explanation based on the car factors.
 
 ## Data Sources
 
@@ -64,7 +64,7 @@ The dataset contains around 6,000 used car records with structured features and 
 
 ### Data Source 2: Fuel / CO2 Reference Table
 
-A second data source was added as a fuel and CO2 reference table. It contains fuel-related information for Petrol, Diesel, CNG, LPG and Electric.
+A second data source was added as a fuel and CO2 reference table. It contains fuel-related information for Petrol, Diesel, CNG, LPG and Electric. The values are based on the Energy Saving Trust Fleet Decarbonisation Toolkit, Table 3, which uses DESNZ 2023 greenhouse gas conversion factors.
 
 This table was joined with the car dataset using the Fuel_Type column. It was used to create additional fuel and CO2-related features.
 
@@ -91,8 +91,9 @@ The app was built with Gradio and deployed on Hugging Face Spaces.
 
 The user enters car information, and the app returns:
 
-1. predicted used car price
-2. NLP explanation of the prediction
+1. predicted used car price in Lakh ₹
+2. estimated uncertainty range based on the individual Random Forest trees
+3. NLP explanation of the prediction
 
 ## Files in this Repository
 
@@ -115,4 +116,4 @@ The user enters car information, and the app returns:
 
 The project does not use the Zurich apartment dataset or the dog breed image dataset that were used during the semester.
 
-The application uses a saved machine learning model for inference. The training process is separated from the deployed app.
+The application uses a saved machine learning model for inference. The training process is separated from the deployed app. The Brand feature is simplified from the first word of the car name in the dataset; for example, Land Rover appears as Land in the learned Brand feature.

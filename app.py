@@ -15,6 +15,12 @@ model = joblib.load("best_car_price_model.joblib")
 
 REFERENCE_YEAR = 2020
 
+# Source for fuel and CO2 factors:
+# Energy Saving Trust Fleet Decarbonisation Toolkit, Table 3:
+# "Overview of GHG factors for different fuel types (DESNZ 2023)".
+# GOV.UK/DESNZ publishes the official UK greenhouse gas conversion factors annually.
+# These values are used only as additional fuel/CO2 features for this student project.
+
 fuel_reference = {
     "Petrol": {
         "fuel_unit": "litre",
@@ -127,9 +133,7 @@ def analyse_car_factors(row, predicted_price):
 def build_fallback_explanation(row, predicted_price):
     factors_up, factors_down = analyse_car_factors(row, predicted_price)
 
-    text = f"""The predicted used car price is {predicted_price:.2f}.
-
-Main reason:
+    text = f"""Main reason:
 The model uses structured car data such as brand, age, mileage, fuel type, transmission, engine size, power and estimated CO2 information to estimate the price.
 
 Factors increasing the price:
@@ -212,6 +216,50 @@ Negative factors: {", ".join(factors_down)}
     except Exception:
         return fallback
 
+
+# ------------------------------------------------
+# 5B. Prediction uncertainty from Random Forest trees
+# ------------------------------------------------
+
+def predict_with_uncertainty(input_data):
+    """
+    Returns:
+    predicted_price, lower_range, upper_range
+
+    The final model is a Random Forest inside a scikit-learn Pipeline.
+    We use the predictions from the individual trees to estimate a rough
+    uncertainty range. This is not a formal confidence interval, but it
+    gives users a more honest range instead of only one exact-looking number.
+    """
+    predicted_price = float(model.predict(input_data)[0])
+
+    try:
+        preprocessor = model.named_steps["preprocessor"]
+        rf_model = model.named_steps["model"]
+
+        transformed_input = preprocessor.transform(input_data)
+
+        if hasattr(transformed_input, "toarray"):
+            transformed_input = transformed_input.toarray()
+
+        tree_predictions = np.array([
+            tree.predict(transformed_input)[0]
+            for tree in rf_model.estimators_
+        ])
+
+        lower_price = float(np.percentile(tree_predictions, 10))
+        upper_price = float(np.percentile(tree_predictions, 90))
+
+        lower_price = max(0.0, lower_price)
+        upper_price = max(lower_price, upper_price)
+
+        return predicted_price, lower_price, upper_price
+
+    except Exception:
+        # fallback if the model is changed later
+        margin = max(0.5, predicted_price * 0.15)
+        return predicted_price, max(0.0, predicted_price - margin), predicted_price + margin
+
 # ------------------------------------------------
 # 6. Prediction-Funktion für App
 # ------------------------------------------------
@@ -257,11 +305,17 @@ def predict_price(
         "estimated_kg_co2e_per_km": estimated_kg_co2e_per_km
     }])
 
-    predicted_price = model.predict(input_data)[0]
+    predicted_price, lower_price, upper_price = predict_with_uncertainty(input_data)
 
     explanation = generate_explanation(input_data.iloc[0], predicted_price)
 
-    result_text = f"Predicted price: {predicted_price:.2f}\n\n{explanation}"
+    result_text = (
+        f"Predicted price: approx. {predicted_price:.2f} Lakh ₹\n"
+        f"Estimated uncertainty range: {lower_price:.2f} - {upper_price:.2f} Lakh ₹\n\n"
+        f"{explanation}\n\n"
+        "Transparency note: If the language model output is too short or unclear, "
+        "the app uses a rule-based fallback explanation based on the car factors."
+    )
 
     return result_text
 
@@ -298,7 +352,7 @@ demo = gr.Interface(
     ],
     outputs=gr.Textbox(label="Prediction and explanation", lines=26),
     title="Used Car Price Estimator with NLP Explanation",
-    description="This app combines ML Numeric Data and NLP. A Random Forest model predicts the used car price, and a language model explains the prediction."
+    description="This app combines ML Numeric Data and NLP. A Random Forest model predicts the used car price in Lakh ₹ and estimates a rough uncertainty range. A language model explains the prediction; if the generated explanation is too short, the app uses a transparent rule-based fallback explanation. Note: the Brand feature is simplified from the first word of the car name in the dataset."
 )
 
 if __name__ == "__main__":

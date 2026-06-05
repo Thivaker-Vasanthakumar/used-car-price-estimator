@@ -62,13 +62,13 @@ Evidence: See `app.py`, especially the functions `predict_price`, `analyse_car_f
 | Entry | Source name or link | Type | Size | Role in this block |
 |---|---|---|---|---|
 | 1 | https://raw.githubusercontent.com/sagnikghoshcr7/Car-Price-Prediction/master/data/dataset.csv | CSV table | 6019 rows, 13 original columns | Main used car dataset with features and target variable `Price` |
-| 2 | Fuel / CO2 reference table | Small structured reference table | 5 fuel types | Added fuel and CO2 features through `Fuel_Type` |
+| 2 | Energy Saving Trust Fleet Decarbonisation Toolkit, Table 3: Overview of GHG factors for different fuel types (DESNZ 2023), based on GOV.UK/DESNZ greenhouse gas conversion factors | Small structured reference table | 5 fuel types | Added fuel and CO2 features through `Fuel_Type` |
 
 #### 2A.2 Preprocessing and Features
 
 * Cleaning steps: Removed unnecessary index columns, removed `New_Price` because it had too many missing values, removed extreme kilometer outliers, handled missing values.
 * Preprocessing steps: Converted text-based numeric columns such as `Mileage`, `Engine` and `Power` into numeric columns.
-* Feature engineering and selection: Created `Mileage_num`, `Engine_num`, `Power_num`, `Brand`, `Car_Age`, `kg_co2e_per_unit`, `kg_co2e_per_kwh`, `kwh_per_unit` and `estimated_kg_co2e_per_km`.
+* Feature engineering and selection: Created `Mileage_num`, `Engine_num`, `Power_num`, `Brand`, `Car_Age`, `kg_co2e_per_unit`, `kg_co2e_per_kwh`, `kwh_per_unit` and `estimated_kg_co2e_per_km`. The fuel and CO2 values come from Energy Saving Trust / DESNZ 2023 factors and are joined through `Fuel_Type`.
 
 Evidence: See notebook sections `SCHRITT 3: DATEN PUTZEN + FEATURES BAUEN` and `SCHRITT 4: ZWEITE DATENQUELLE EINBAUEN`.
 
@@ -135,7 +135,7 @@ Evidence: See notebook section `SCHRITT 6B: BESSERE NLP-ERKLÄRUNG + FALLBACK`.
 #### 2B.5 Evaluation and Error Analysis
 
 * Evaluation strategy: Qualitative comparison of prompt outputs using sample cars. The outputs were checked for readability, completeness and whether they refer to relevant car features.
-* Results: The structured prompt was selected because it gives clearer explanations than the simple prompt. A fallback explanation was added because the small free model sometimes produced very short answers.
+* Results: The structured prompt was selected because it gives clearer explanations than the simple prompt. A fallback explanation was added because the small free model sometimes produced very short answers. The app explicitly tells the user when this rule-based fallback logic may be used.
 * Error patterns and likely causes: The free language model sometimes returns short or incomplete text. The fallback explanation solves this by using rule-based factor analysis when the generated text is too weak.
 
 Evidence: See `nlp_prompt_comparison_improved_step6b.csv` and `app.py`, functions `generate_explanation` and `build_fallback_explanation`.
@@ -158,7 +158,7 @@ N/A. Computer Vision was not selected. The project uses ML Numeric Data and NLP 
 ## 3. Deployment
 
 * Deployment URL: https://huggingface.co/spaces/vasanthi8134/used-car-price-estimator
-* Main user flow: The user enters car attributes in the Gradio interface, clicks Submit, receives a predicted used car price and a natural-language explanation.
+* Main user flow: The user enters car attributes in the Gradio interface, clicks Submit, receives a predicted used car price in Lakh ₹, a rough uncertainty range estimated from the Random Forest trees, and a natural-language explanation.
 * Screenshot or short demo: See `screenshots/screenshot_01_hyundai_prediction.png` and `screenshots/screenshot_02_bmw_prediction.png`.
 
 The deployed app uses `app.py`, `requirements.txt` and the saved model file `best_car_price_model.joblib`.
@@ -171,13 +171,13 @@ The deployed app uses `app.py`, `requirements.txt` and the saved model file `bes
 * Data setup: The raw car dataset is loaded from the public CSV URL in the notebook. The fuel / CO2 reference table is created in the notebook and joined through `Fuel_Type`.
 * Training command(s): Run the notebook from the data loading section through the model training section. The final model is saved as `best_car_price_model.joblib`.
 * Inference/run command(s): Install dependencies with `pip install -r requirements.txt` and run the app with `python app.py`.
-* Reproducibility notes: The deployed app pins `scikit-learn==1.6.1` because the saved model was trained with this version. Training and inference are separated: the notebook trains and saves the model, while the app only loads the saved model and predicts.
+* Reproducibility notes: The deployed app pins `scikit-learn==1.6.1` because the saved model was trained with this version. Training and inference are separated: the notebook trains and saves the model, while the app only loads the saved model and predicts. The uncertainty range is calculated during inference from the existing Random Forest trees and does not require retraining. The Brand feature is simplified from the first word of the car name in the dataset; for example, Land Rover appears as Land in the learned feature.
 
 ---
 
 ## 5. Optional Bonus Evidence
 
-* Ethics, bias, or fairness analysis: The dataset represents a sample of used car listings and may not cover all markets equally. The model should not be interpreted as an exact market valuation. Important real-world factors such as accident history, service records, vehicle condition and local demand are not included.
+* Ethics, bias, or fairness analysis: The dataset represents a sample of used car listings and may not cover all markets equally. The output is shown as an estimate with an uncertainty range instead of a single exact-looking value. The model should not be interpreted as an exact market valuation. Important real-world factors such as accident history, service records, vehicle condition and local demand are not included.
 * The app includes a short buying advice section to communicate that the prediction is only an estimate.
 
 ## Footer
