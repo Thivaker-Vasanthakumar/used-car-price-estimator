@@ -10,7 +10,7 @@ When possible, the corresponding code location is referenced directly in the des
 
 * Project title: Used Car Price Estimator with NLP Explanation
 * Student: Thivaker Vasanthakumar
-* GitHub repository URL: TODO: add GitHub repository URL
+* GitHub repository URL: https://github.com/Thivaker-Vasanthakumar/used-car-price-estimator
 * Deployment URL: https://huggingface.co/spaces/vasanthi8134/used-car-price-estimator
 * Submission date: 05.06.2026
 
@@ -19,7 +19,7 @@ When possible, the corresponding code location is referenced directly in the des
 * At least 2 blocks selected: Yes
 * Multiple and different data sources used: Yes
 * Deployment URL provided: Yes
-* Required GitHub users added to repository (`jasminh`, `bkuehnis`): TODO after GitHub repository setup
+* Required GitHub users added to repository (`jasminh`, `bkuehnis`): Yes
 
 ## Selected AI Blocks
 
