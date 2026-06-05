@@ -1,0 +1,41 @@
+{
+    "features": [
+        "Location",
+        "Year",
+        "Kilometers_Driven",
+        "Fuel_Type",
+        "Transmission",
+        "Owner_Type",
+        "Seats",
+        "Mileage_num",
+        "Engine_num",
+        "Power_num",
+        "Brand",
+        "Car_Age",
+        "kg_co2e_per_unit",
+        "kg_co2e_per_kwh",
+        "kwh_per_unit",
+        "estimated_kg_co2e_per_km"
+    ],
+    "numeric_features": [
+        "Year",
+        "Kilometers_Driven",
+        "Seats",
+        "Mileage_num",
+        "Engine_num",
+        "Power_num",
+        "Car_Age",
+        "kg_co2e_per_unit",
+        "kg_co2e_per_kwh",
+        "kwh_per_unit",
+        "estimated_kg_co2e_per_km"
+    ],
+    "categorical_features": [
+        "Location",
+        "Fuel_Type",
+        "Transmission",
+        "Owner_Type",
+        "Brand"
+    ],
+    "best_model": "Random Forest"
+}

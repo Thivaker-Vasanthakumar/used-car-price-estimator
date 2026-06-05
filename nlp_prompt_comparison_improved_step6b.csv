@@ -1,0 +1,45 @@
+Brand,Year,Fuel_Type,Transmission,Actual_Price,Predicted_Price,Prompt_A_simple,Prompt_B_structured
+Tata,2008,Diesel,Manual,1.25,1.33,"The predicted used car price is 1.33.
+
+Main reason:
+The model uses structured car data such as brand, age, mileage, fuel type, transmission, engine size and power to estimate the price.
+
+Factors increasing the price:
+- diesel cars can be valued higher for long-distance use
+
+Factors decreasing the price:
+- the car is older
+- the mileage is high
+- the engine power is modest
+- it had previous owners
+
+Short buying advice:
+The prediction should be seen as an estimated market value. The real price can still change depending on condition, service history, accident history and local demand.","Negative Factors: the car is older, the mileage is high, the engine power is modest, it had previous owners. Negative Factors: the car is older"
+Hyundai,2010,Diesel,Manual,2.7,3.35,"The predicted used car price is 3.35.
+
+Main reason:
+The model uses structured car data such as brand, age, mileage, fuel type, transmission, engine size and power to estimate the price.
+
+Factors increasing the price:
+- it is a first-owner car
+- diesel cars can be valued higher for long-distance use
+
+Factors decreasing the price:
+- the car is older
+
+Short buying advice:
+The prediction should be seen as an estimated market value. The real price can still change depending on condition, service history, accident history and local demand.","The price of a used car is higher compared to that of a first-owner car. Therefore, the price of a used car is higher compared to that of a diesel car."
+Maruti,2013,Diesel,Manual,3.38,4.26,The price of a used car may vary depending on the type of vehicle you're driving and the type of vehicle you're going to drive.,"The predicted used car price is 4.26.
+
+Main reason:
+The model uses structured car data such as brand, age, mileage, fuel type, transmission, engine size and power to estimate the price.
+
+Factors increasing the price:
+- it is a first-owner car
+- diesel cars can be valued higher for long-distance use
+
+Factors decreasing the price:
+- there are no major negative factors visible in the input data
+
+Short buying advice:
+The prediction should be seen as an estimated market value. The real price can still change depending on condition, service history, accident history and local demand."
