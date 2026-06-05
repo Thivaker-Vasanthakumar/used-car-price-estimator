@@ -23,7 +23,7 @@ https://huggingface.co/spaces/vasanthi8134/used-car-price-estimator
 
 The machine learning part uses structured car data such as brand, location, year, kilometers driven, fuel type, transmission, owner type, mileage, engine size, power and estimated CO2 information.
 
-The target variable is Price.
+The target variable is `Price`.
 
 Two models were trained and compared:
 
@@ -34,9 +34,9 @@ The final model is the Random Forest model because it achieved better results.
 
 ### Block 2: NLP
 
-The NLP part explains the prediction in natural language.
+The NLP part explains the prediction in natural language. The predicted price from the ML model is used as input for the NLP explanation.
 
-The predicted price from the ML model is used as input for the NLP explanation. The explanation includes:
+The explanation includes:
 
 - main reason for the price
 - factors increasing the price
@@ -60,17 +60,24 @@ URL used in the project:
 
 https://raw.githubusercontent.com/sagnikghoshcr7/Car-Price-Prediction/master/data/dataset.csv
 
-The dataset contains around 6,000 used car records with structured features and the target variable Price.
+The dataset contains around 6,000 used car records with structured features and the target variable `Price`.
 
 ### Data Source 2: Fuel / CO2 Reference Table
 
-A second data source was added as a fuel and CO2 reference table. It contains fuel-related information for Petrol, Diesel, CNG, LPG and Electric. The values are based on the Energy Saving Trust Fleet Decarbonisation Toolkit, Table 3, which uses DESNZ 2023 greenhouse gas conversion factors.
+A second data source was added as a fuel and CO2 reference table. It contains fuel-related information for Petrol, Diesel, CNG, LPG and Electric.
+
+The values are based on the Energy Saving Trust Fleet Decarbonisation Toolkit, Table 3, which uses DESNZ 2023 greenhouse gas conversion factors.
 
 Source links:
+
 - Energy Saving Trust Fleet Decarbonisation Toolkit, Table 3: https://fleetdecarbonisationtoolkit.energysavingtrust.org.uk/t/decarbonisation-strategy/emissions-calculated/car-van-ghg-kwh-calculations-2/
 - GOV.UK DESNZ greenhouse gas conversion factors 2023: https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023
 
-This table was joined with the car dataset using the Fuel_Type column. It was used to create additional fuel and CO2-related features.
+This table was joined with the car dataset using the `Fuel_Type` column. It was used to create additional fuel and CO2-related features.
+
+## EDA Summary
+
+The initial EDA checked dataset shape, data types, missing values, descriptive statistics and category frequencies. The price distribution is right-skewed, meaning most cars are in a lower to mid price range while expensive premium cars are rare. Diesel and petrol are the dominant fuel types, manual transmission is more common than automatic transmission, and newer cars tend to have higher prices.
 
 ## Model Performance
 
@@ -101,23 +108,25 @@ The user enters car information, and the app returns:
 
 ## Files in this Repository
 
-- notebook.ipynb: complete development notebook
-- app.py: Gradio application
-- requirements.txt: required Python packages
-- best_car_price_model.joblib: saved machine learning model
-- model_features.json: model feature information
-- documentation.md: project documentation using the required template
-- screenshots/: screenshots of the running app
+- `notebook.ipynb`: complete development notebook
+- `app.py`: Gradio application
+- `requirements.txt`: required Python packages
+- `best_car_price_model.joblib`: saved machine learning model
+- `model_features.json`: model feature information
+- `documentation.md`: project documentation using the required template
+- `screenshots/`: screenshots of the running app
 
 ## How to Run Locally
 
 1. Clone the repository.
-2. Install the requirements with: pip install -r requirements.txt
-3. Run the app with: python app.py
+2. Install the requirements with: `pip install -r requirements.txt`
+3. Run the app with: `python app.py`
 4. Open the local Gradio URL in the browser.
 
 ## Notes
 
 The project does not use the Zurich apartment dataset or the dog breed image dataset that were used during the semester.
 
-The application uses a saved machine learning model for inference. The training process is separated from the deployed app. The Brand feature is simplified from the first word of the car name in the dataset; for example, Land Rover appears as Land in the learned Brand feature.
+The application uses a saved machine learning model for inference. The training process is separated from the deployed app.
+
+The Brand feature is simplified from the first word of the car name in the dataset; for example, Land Rover appears as Land in the learned Brand feature.
