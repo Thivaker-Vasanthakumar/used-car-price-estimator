@@ -68,7 +68,7 @@ Evidence: See `app.py`, especially the functions `predict_price`, `analyse_car_f
 
 * Cleaning steps: Removed unnecessary index columns, removed `New_Price` because it had too many missing values, removed extreme kilometer outliers, handled missing values.
 * Preprocessing steps: Converted text-based numeric columns such as `Mileage`, `Engine` and `Power` into numeric columns.
-* Feature engineering and selection: Created `Mileage_num`, `Engine_num`, `Power_num`, `Brand`, `Car_Age`, `kg_co2e_per_unit`, `kg_co2e_per_kwh`, `kwh_per_unit` and `estimated_kg_co2e_per_km`. The fuel and CO2 values come from Energy Saving Trust / DESNZ 2023 factors and are joined through `Fuel_Type`.
+* Feature engineering and selection: Created `Mileage_num`, `Engine_num`, `Power_num`, `Brand`, `Car_Age`, `kg_co2e_per_unit`, `kg_co2e_per_kwh`, `kwh_per_unit` and `estimated_kg_co2e_per_km`. The fuel and CO2 values come from Energy Saving Trust / DESNZ 2023 factors and are joined through `Fuel_Type`. Source: Energy Saving Trust Fleet Decarbonisation Toolkit, Table 3 (https://fleetdecarbonisationtoolkit.energysavingtrust.org.uk/t/decarbonisation-strategy/emissions-calculated/car-van-ghg-kwh-calculations-2/), based on GOV.UK/DESNZ greenhouse gas conversion factors 2023 (https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023).
 
 Evidence: See notebook sections `SCHRITT 3: DATEN PUTZEN + FEATURES BAUEN` and `SCHRITT 4: ZWEITE DATENQUELLE EINBAUEN`.
 

@@ -66,6 +66,10 @@ The dataset contains around 6,000 used car records with structured features and 
 
 A second data source was added as a fuel and CO2 reference table. It contains fuel-related information for Petrol, Diesel, CNG, LPG and Electric. The values are based on the Energy Saving Trust Fleet Decarbonisation Toolkit, Table 3, which uses DESNZ 2023 greenhouse gas conversion factors.
 
+Source links:
+- Energy Saving Trust Fleet Decarbonisation Toolkit, Table 3: https://fleetdecarbonisationtoolkit.energysavingtrust.org.uk/t/decarbonisation-strategy/emissions-calculated/car-van-ghg-kwh-calculations-2/
+- GOV.UK DESNZ greenhouse gas conversion factors 2023: https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023
+
 This table was joined with the car dataset using the Fuel_Type column. It was used to create additional fuel and CO2-related features.
 
 ## Model Performance
