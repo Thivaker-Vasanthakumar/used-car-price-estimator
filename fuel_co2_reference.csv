@@ -1,0 +1,6 @@
+Fuel_Type,fuel_unit,kg_co2e_per_unit,kg_co2e_per_kwh,kwh_per_unit,source
+Petrol,litre,2.1,0.22,9.545455,Energy Saving Trust Fleet Decarbonisation Toolkit Table 3 / DESNZ 2023
+Diesel,litre,2.51,0.24,10.45833,Energy Saving Trust Fleet Decarbonisation Toolkit Table 3 / DESNZ 2023
+CNG,kg,2.5625,0.18,14.23611,Energy Saving Trust Fleet Decarbonisation Toolkit Table 3 / DESNZ 2023
+LPG,litre,1.56,0.21,7.428571,Energy Saving Trust Fleet Decarbonisation Toolkit Table 3 / DESNZ 2023
+Electric,kWh,0.212,0.19,1.0,Energy Saving Trust Fleet Decarbonisation Toolkit Table 3 / DESNZ 2023

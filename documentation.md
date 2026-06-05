@@ -62,7 +62,7 @@ Evidence: See `app.py`, especially the functions `predict_price`, `predict_with_
 | Entry | Source name or link | Type | Size | Role in this block |
 |---|---|---|---|---|
 | 1 | https://raw.githubusercontent.com/sagnikghoshcr7/Car-Price-Prediction/master/data/dataset.csv | CSV table | 6019 rows, 13 original columns | Main used car dataset with features and target variable `Price` |
-| 2 | Energy Saving Trust Fleet Decarbonisation Toolkit, Table 3: Overview of GHG factors for different fuel types (DESNZ 2023), based on GOV.UK/DESNZ greenhouse gas conversion factors | Small structured reference table | 5 fuel types | Added fuel and CO2 features through `Fuel_Type` |
+| 2 | `fuel_co2_reference.csv`, based on Energy Saving Trust Fleet Decarbonisation Toolkit Table 3 and GOV.UK/DESNZ greenhouse gas conversion factors 2023 | CSV/reference table | 5 fuel types, 6 columns | Joined through `Fuel_Type` and used to create fuel/CO2 features |
 
 #### 2A.2 Preprocessing and Features
 
@@ -75,6 +75,7 @@ Evidence: See `app.py`, especially the functions `predict_price`, `predict_with_
 * Feature engineering and selection: Created `Mileage_num`, `Engine_num`, `Power_num`, `Brand`, `Car_Age`, `kg_co2e_per_unit`, `kg_co2e_per_kwh`, `kwh_per_unit` and `estimated_kg_co2e_per_km`.
 * Car age calculation: `Car_Age` was calculated using reference year 2020, because the newest cars in the dataset are from 2019.
 * Fuel and CO2 features: The fuel and CO2 values come from Energy Saving Trust / DESNZ 2023 factors and are joined through `Fuel_Type`.
+* The second data source is stored as `fuel_co2_reference.csv` in the repository, making it visible as a separate dataset instead of only being embedded in code.
 
 Source: Energy Saving Trust Fleet Decarbonisation Toolkit, Table 3 (https://fleetdecarbonisationtoolkit.energysavingtrust.org.uk/t/decarbonisation-strategy/emissions-calculated/car-van-ghg-kwh-calculations-2/), based on GOV.UK/DESNZ greenhouse gas conversion factors 2023 (https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023).
 
@@ -180,7 +181,7 @@ The deployed app uses `app.py`, `requirements.txt` and the saved model file `bes
 ## 4. Execution Instructions
 
 * Environment setup: Python environment with packages from `requirements.txt`.
-* Data setup: The raw car dataset is loaded from the public CSV URL in the notebook. The fuel / CO2 reference table is created in the notebook and joined through `Fuel_Type`.
+* Data setup: The raw car dataset is loaded from the public CSV URL in the notebook. The fuel / CO2 reference table is stored as `fuel_co2_reference.csv` and joined through `Fuel_Type`. The same reference values are used by the deployed app.
 * Training command(s): Run the notebook from the data loading section through the model training section. The final model is saved as `best_car_price_model.joblib`.
 * Inference/run command(s): Install dependencies with `pip install -r requirements.txt` and run the app with `python app.py`.
 * Reproducibility notes: The deployed app pins `scikit-learn==1.6.1` because the saved model was trained with this version.

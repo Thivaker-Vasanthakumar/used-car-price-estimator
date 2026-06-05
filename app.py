@@ -54,6 +54,48 @@ fuel_reference = {
     }
 }
 
+
+# ------------------------------------------------
+# 1B. Load second data source from CSV
+# ------------------------------------------------
+
+def load_fuel_reference_from_csv():
+    """
+    Loads the visible second data source from fuel_co2_reference.csv.
+
+    The app still contains fallback values above, but when the CSV is available,
+    these values are loaded from the separate reference dataset file. This makes
+    the second data source visible in the repository and on Hugging Face.
+    """
+    try:
+        fuel_df = pd.read_csv("fuel_co2_reference.csv")
+
+        required_columns = [
+            "Fuel_Type",
+            "fuel_unit",
+            "kg_co2e_per_unit",
+            "kg_co2e_per_kwh",
+            "kwh_per_unit"
+        ]
+
+        missing_columns = [col for col in required_columns if col not in fuel_df.columns]
+        if missing_columns:
+            raise ValueError(f"Missing columns in fuel_co2_reference.csv: {missing_columns}")
+
+        return fuel_df.set_index("Fuel_Type")[[
+            "fuel_unit",
+            "kg_co2e_per_unit",
+            "kg_co2e_per_kwh",
+            "kwh_per_unit"
+        ]].to_dict(orient="index")
+
+    except Exception:
+        # Fallback: use the hard-coded reference values above
+        return fuel_reference
+
+
+fuel_reference = load_fuel_reference_from_csv()
+
 # ------------------------------------------------
 # 2. Sprachmodell lazy laden
 # ------------------------------------------------
