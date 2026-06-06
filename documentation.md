@@ -174,12 +174,6 @@ N/A. Computer Vision was not selected. The project uses ML Numeric Data and NLP 
 * Main user flow: The user enters car attributes in the Gradio interface, clicks Submit, receives a predicted used car price in Lakh ₹, a rough uncertainty range estimated from the Random Forest trees, and a natural-language explanation.
 * Screenshot or short demo: See `screenshots/screenshot_01_hyundai_prediction.png` and `screenshots/screenshot_02_bmw_prediction.png`.
 
-The deployed app uses `## 3. Deployment
-
-* Deployment URL: https://huggingface.co/spaces/vasanthi8134/used-car-price-estimator
-* Main user flow: The user enters car attributes in the Gradio interface, clicks Submit, receives a predicted used car price in Lakh ₹, a rough uncertainty range estimated from the Random Forest trees, and a natural-language explanation.
-* Screenshot or short demo: See `screenshots/screenshot_01_hyundai_prediction.png` and `screenshots/screenshot_02_bmw_prediction.png`.
-
 **Screenshot 1 – Hyundai (mid-range car):** A 2015 Hyundai with 50,000 km and a first owner. The app predicts approx. 5.08 Lakh ₹ (range 3.95–6.30) and the explanation lists supporting factors such as "relatively new" and "first owner".
 
 ![Hyundai prediction](screenshots/screenshot_01_hyundai_prediction.png)
@@ -188,7 +182,7 @@ The deployed app uses `## 3. Deployment
 
 ![BMW prediction](screenshots/screenshot_02_bmw_prediction.png)
 
-The deployed app uses `app.py`, `requirements.txt` and the saved model file `best_car_price_model.joblib`.app.py`, `requirements.txt` and the saved model file `best_car_price_model.joblib`.
+The deployed app uses `app.py`, `requirements.txt` and the saved model file `best_car_price_model.joblib`.
 
 ---
 
